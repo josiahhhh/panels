@@ -18,17 +18,17 @@ import tw from "twin.macro";
 
 const DashboardRouter = lazy(
     () =>
-        import(/* webpackChunkName: "dashboard" */ "@/routers/DashboardRouter")
+        import(/* webpackChunkName: 'dashboard' */ "@/routers/DashboardRouter")
 );
 const ServerRouter = lazy(
-    () => import(/* webpackChunkName: "server" */ "@/routers/ServerRouter")
+    () => import(/* webpackChunkName: 'server' */ "@/routers/ServerRouter")
 );
 const AuthenticationRouter = lazy(
     () =>
-        import(/* webpackChunkName: "auth" */ "@/routers/AuthenticationRouter")
+        import(/* webpackChunkName: 'auth' */ "@/routers/AuthenticationRouter")
 );
 const StaffRouter = lazy(
-    () => import(/* webpackChunkName: "auth" */ "@/routers/StaffRouter")
+    () => import(/* webpackChunkName: 'auth' */ "@/routers/StaffRouter")
 );
 
 interface ExtendedWindow extends Window {
@@ -75,10 +75,7 @@ const App = () => {
             <GlobalStylesheet />
             <StoreProvider store={store}>
                 <ProgressBar />
-                <div
-                    css={tw`mx-auto w-auto`}
-                    style={{ backgroundImage: 'url("/assets/iceline/bg.png")' }}
-                >
+                <div css={tw`mx-auto w-auto`}>
                     <Router history={history}>
                         <div
                             className={"content-wrapper"}

@@ -1,5 +1,5 @@
-import tw from 'twin.macro';
-import { createGlobalStyle } from 'styled-components/macro';
+import { createGlobalStyle } from "styled-components/macro";
+import tw from "twin.macro";
 
 export default createGlobalStyle`
     html {
@@ -9,6 +9,12 @@ export default createGlobalStyle`
     body {
         ${tw`font-sans bg-icelinemainbackground-500 text-neutral-200`};
         letter-spacing: 0.015em;
+        background-image: url('/assets/iceline/bg.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        overflow: hidden;
     }
 
     h1, h2, h3, h4, h5, h6 {
