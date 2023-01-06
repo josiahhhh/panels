@@ -1,0 +1,5 @@
+assets/*
+!assets/svgs
+!assets/svgs/*.svg
+!assets/iceline
+!assets/iceline/*.png

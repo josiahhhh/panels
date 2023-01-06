@@ -1,0 +1,83 @@
+stages:
+  # Run the release creation before building the image
+  # as the image will generate and upload source maps
+  #
+  - release
+  - annotate
+#  - image
+
+#build:
+#  stage: image
+#  image: docker:19.03.8
+#  services:
+#    - docker:19.03.8-dind
+#  variables:
+#    # Use TLS https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
+#    DOCKER_HOST: tcp://docker:2376
+#    DOCKER_TLS_CERTDIR: "/certs"
+#  before_script:
+#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#  script:
+#    - docker pull $CI_REGISTRY_IMAGE:latest || true
+#    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest --build-arg SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN} .
+#    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+#    - docker push $CI_REGISTRY_IMAGE:latest
+
+panel:release:
+  stage: release
+  image:
+    name: getsentry/sentry-cli
+    entrypoint: [ "" ]
+  variables:
+    SENTRY_ORG: iceline
+    SENTRY_PROJECT: panel
+    SENTRY_URL: https://sentry.iceline.host/
+  only:
+    - iceline
+  script:
+    - export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+    - echo "Using release name $SENTRY_RELEASE"
+    - sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+    - sentry-cli releases set-commits --auto $SENTRY_RELEASE
+    - sentry-cli releases finalize $SENTRY_RELEASE
+
+api:release:
+  stage: release
+  image:
+    name: getsentry/sentry-cli
+    entrypoint: [ "" ]
+  variables:
+    SENTRY_ORG: iceline
+    SENTRY_PROJECT: api
+    SENTRY_URL: https://sentry.iceline.host/
+  only:
+    - iceline
+  script:
+    - export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+    - echo "Using release name $SENTRY_RELEASE"
+    - sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+    - sentry-cli releases set-commits --auto $SENTRY_RELEASE
+    - sentry-cli releases finalize $SENTRY_RELEASE
+
+sentry:sourcemaps:
+  stage: annotate
+  image: node:14
+  needs:
+    - panel:release
+  variables:
+    SENTRY_ORG: iceline
+    SENTRY_PROJECT: panel
+    SENTRY_URL: https://sentry.iceline.host/
+  before_script:
+    - curl -sL https://sentry.io/get-cli/ | bash
+    - export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+  script:
+    - yarn install --frozen-lockfile
+    - export DEVTOOL=source-map
+    - yarn run build
+    - sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps --url-prefix "~/assets" public/assets/
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
+
