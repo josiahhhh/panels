@@ -174,6 +174,7 @@ module.exports = {
 
             icelinePrimary: '#2986DD',
             icelineSidebarSelected: '#101224',
+            icelineBtnPrimary: '#111728',
         },
         extend: {
             fontFamily: {

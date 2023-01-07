@@ -50,6 +50,20 @@
     }
 }
 
+
+.terminal {
+    @apply bg-icelineBtnPrimary text-gray-50;
+    @apply hover:bg-gray-800 active:bg-gray-800;
+
+    &.secondary {
+        @apply hover:bg-gray-900 active:bg-gray-900;
+    }
+
+    &:disabled {
+        @apply bg-gray-900/75 text-gray-50/75;
+    }
+}
+
 .text {
     @apply border-neutral-600 bg-transparent text-neutral-200;
     @apply hover:border-neutral-500 hover:text-neutral-100;

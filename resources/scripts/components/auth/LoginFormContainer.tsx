@@ -30,24 +30,19 @@ type Props = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, 
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => (
     <div
-        css={tw`h-full flex flex-col justify-evenly`}
+        css={tw`w-full md:h-full p-8`}
         style={{
-            background: 'rgba(14, 16, 31, 1)',
-            maxWidth: '450px',
+            minHeight: '100vh',
+            background: 'rgba(11, 14, 22, 0.8)',
+            backdropFilter: 'blur(20px)',
+            
         }}
     >
-        {title && <h2 css={tw`text-3xl text-center text-neutral-100 font-medium py-4`}>{title}</h2>}
         <div>
             <FlashMessageRender css={tw`mb-2 px-1`} />
             <Form {...props} ref={ref}>
                 <div css={tw`w-full px-4`}>{props.children}</div>
             </Form>
         </div>
-        <p css={tw`text-center text-neutral-500 text-xs mt-4`}>
-            &copy; 2015 - {new Date().getFullYear()}&nbsp;
-            <a rel={'noopener nofollow noreferrer'} href={'https://pterodactyl.io'} target={'_blank'} css={tw`no-underline text-neutral-500 hover:text-neutral-300`}>
-                Iceline Hosting
-            </a>
-        </p>
     </div>
 ));

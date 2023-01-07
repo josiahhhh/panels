@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components/macro";
-import tw from "twin.macro";
+import { createGlobalStyle } from 'styled-components/macro';
+import tw from 'twin.macro';
 
 export default createGlobalStyle`
     html {

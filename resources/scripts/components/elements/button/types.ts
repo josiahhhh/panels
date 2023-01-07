@@ -13,6 +13,7 @@ enum Size {
 enum Variant {
     Primary,
     Secondary,
+    Tertiary,
 }
 
 export const Options = { Shape, Size, Variant };

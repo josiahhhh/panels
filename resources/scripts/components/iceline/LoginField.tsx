@@ -22,25 +22,26 @@ const Input = styled.input<InputProps>`
     &:not([type='checkbox']):not([type='radio']) {
         ${inputStyle};
 
-        border: 1px solid #ffffff;
+        border: 1px solid #283350;
         border-radius: 5px;
         background: transparent;
+        
     }
 `;
 
 const Label = styled.label<{ isLight?: boolean }>`
-    ${tw`block text-sm text-neutral-50`};
+    ${tw`text-xs text-neutral-300`};
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+    
+    ${props => props.isLight && tw`text-neutral-100`};
 
-    display: inline-block;
-    position: absolute;
-
-    padding: 0 0.25em;
-
-    margin-top: -0.65rem;
-    margin-left: 1rem;
-
-    background: #0e101f;
-    z-index: 20;
+    &::after {
+        content: '*';
+        color: #ff5f58;
+        margin-left: 0.25rem;
+    }
 `;
 
 const Field = forwardRef<HTMLInputElement, Props>(({ id, name, light = false, label, description, validate, ...props }, ref) => (

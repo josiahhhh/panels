@@ -36,12 +36,19 @@ const DangerButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ..
     <Button ref={ref} className={classNames(styles.danger, className)} {...props} />
 ));
 
+const StyledButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => (
+    // @ts-expect-error not sure how to get this correct
+    <Button ref={ref} className={classNames(styles.terminal, className)} {...props} />
+));
+
+
 const _Button = Object.assign(Button, {
     Sizes: Options.Size,
     Shapes: Options.Shape,
     Variants: Options.Variant,
     Text: TextButton,
     Danger: DangerButton,
+    Styled: StyledButton,
 });
 
 export default _Button;
