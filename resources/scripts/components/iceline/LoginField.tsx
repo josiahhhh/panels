@@ -25,6 +25,8 @@ const Input = styled.input<InputProps>`
         border: 1px solid #283350;
         border-radius: 5px;
         background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.75rem;
         
     }
 `;

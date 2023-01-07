@@ -165,22 +165,60 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                                         label={"Username or Email"}
                                     />
                                     <div css={tw`pb-5`} />
-                                    <LoginField
-                                        name={"password"}
-                                        type={"password"}
-                                        placeholder={"Password"}
-                                        label={"Password"}
-                                    />
+                                    <div
+                                        css={tw`flex flex-col w-full `}
+                                    >
+                                        <div
+                                        css={tw`flex flex-row justify-between mb-2 items-center`}
+                                    >
+                                        <label
+                                            css={tw`text-xs font-bold text-neutral-300  block`}
+                                        >
+                                            Password{" "}
+                                            <span css={tw`text-red-400`}>*</span>
+                                        </label>
+
+                                        <h1>
+                                            <a
+                                                css={tw`text-xs text-neutral-300 block`}
+                                                href="/auth/password"
+                                            >
+                                                Forgot Password?
+                                            </a>
+                                        </h1>
+
+</div>
+                                        <LoginField
+                                            name={"password"}
+                                            type={"password"}
+                                            placeholder={"Password"}
+                                        />
+                                    </div>
                                 </div>
                                 <div css={tw`flex flex-col w-full mt-10`}>
                                     <Button
                                         type={"submit"}
+                                        isLoading={isSubmitting}
                                         disabled={isSubmitting}
-                                        onClick={() => submitForm()}
                                         css={tw`w-full bg-icelineBtnPrimary border transition transition-colors hover:bg-icelineBtnPrimary border-gray-800 py-2 text-white text-lg font-medium rounded-md hover:opacity-75 transition duration-150 ease-in-out`}
                                     >
                                         Sign In
                                     </Button>
+                                    {recaptchaEnabled && (
+                                        <Reaptcha
+                                            ref={ref}
+                                            size={"invisible"}
+                                            sitekey={siteKey || "_invalid_key"}
+                                            onVerify={(response) => {
+                                                setToken(response);
+                                                submitForm();
+                                            }}
+                                            onExpire={() => {
+                                                setSubmitting(false);
+                                                setToken("");
+                                            }}
+                                        />
+                                    )}
                                 </div>
                             </div>
                         </LoginFormContainer>
