@@ -40,9 +40,10 @@ export const inputStyle = css<Props>`
     // Reset to normal styling.
     resize: none;
     ${tw`appearance-none outline-none w-full min-w-0`};
-    ${tw`p-3 py-2 border-2 rounded text-sm transition-all duration-150`};
-    ${tw`bg-icelinebox-700 border-icelinebox-500 hover:border-icelinebrandcolour-500 text-neutral-200 shadow-none`};
-    background-color: #101224;
+    ${tw`p-3 py-2 border-2 rounded-xl text-sm transition-all duration-150`};
+    ${tw`bg-icelineBtnPrimary border-gray-800 hover:border-gray-900 text-neutral-200 shadow-none`};
+ 
+
     & + .input-help {
         ${tw`mt-1 text-xs`};
         ${(props) => (props.hasError ? tw`text-red-200` : tw`text-neutral-200`)};
