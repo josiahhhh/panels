@@ -99,7 +99,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                 css={tw`flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0`}
             >
                 <div
-                    css={tw`sm:w-1/2 xl:w-4/5 h-full hidden md:flex flex-auto items-center justify-center overflow-hidden text-white bg-cover relative`}
+                    css={tw`sm:w-1/2 lg:w-11/12 h-full hidden md:flex flex-auto items-center justify-center overflow-hidden text-white bg-cover relative`}
                     style={{
                         backgroundImage: `url("/assets/iceline/login.png")`,
                     }}
