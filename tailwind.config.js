@@ -147,8 +147,8 @@ module.exports = {
             },
             icelinebrandcolour: {
                 50: '#F3F8FE',
-                100: '#E8F1FD',
-                200: '#C5DCF9',
+                100: '#1C83E2',
+                200: '#47A7FF',
                 300: '#A1C7F6',
                 400: '#5B9CEF',
                 500: '#1572E8',
@@ -175,6 +175,7 @@ module.exports = {
             icelinePrimary: '#2986DD',
             icelineSidebarSelected: '#101224',
             icelineBtnPrimary: '#111728',
+            icelineMuted: '#EAEDF3'
         },
         extend: {
             fontFamily: {

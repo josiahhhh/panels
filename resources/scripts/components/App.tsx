@@ -68,6 +68,7 @@ const App = () => {
                 <div css={tw`mx-auto w-auto`}>
                     <Router history={history}>
                         <div className={'content-wrapper'} css={tw`grid grid-cols-1 sm:grid-cols-dashboard h-screen relative`}>
+   
                             <div className={'content'} css={tw`h-screen overflow-x-hidden overflow-y-auto relative `}>
                                 <Switch>
                                     <Route path={'/auth'}>

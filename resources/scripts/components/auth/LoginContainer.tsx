@@ -119,7 +119,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                     {({ isSubmitting, setSubmitting, submitForm }) => (
                         <LoginFormContainer>
                             <div
-                                css={tw`flex flex-col w-full py-20 container max-w-4xl`}
+                                css={tw`flex flex-col w-full py-20 px-10 sm:px-20 md:px-40 lg:px-60`}
                             >
                                 <div css={tw`flex flex-row items-center`}>
                                     <img
@@ -141,12 +141,14 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                                     <h1 css={tw`text-5xl mt-10 text-white`}>
                                         Sign in
                                     </h1>
-                                    <p css={tw`text-white mt-2`}>
+                                    <p css={tw`text-icelineMuted my-5`}>
                                         You can sign in with Iceline Identity or
                                         by using your email and password.
                                     </p>
                                 </div>
-                                <Button css={tw`mt-5 mb-5`}>
+                                <Button
+                                    css={tw`mt-5 mb-5 bg-icelinebrandcolour-100 border-icelinebrandcolour-200`}
+                                >
                                     Sign in with Iceline Identity
                                 </Button>
                                 <div css={tw`flex items-center `}>
@@ -165,29 +167,28 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                                         label={"Username or Email"}
                                     />
                                     <div css={tw`pb-5`} />
-                                    <div
-                                        css={tw`flex flex-col w-full `}
-                                    >
+                                    <div css={tw`flex flex-col w-full `}>
                                         <div
-                                        css={tw`flex flex-row justify-between mb-2 items-center`}
-                                    >
-                                        <label
-                                            css={tw`text-xs font-bold text-neutral-300  block`}
+                                            css={tw`flex flex-row justify-between mb-2 items-center`}
                                         >
-                                            Password{" "}
-                                            <span css={tw`text-red-400`}>*</span>
-                                        </label>
-
-                                        <h1>
-                                            <a
-                                                css={tw`text-xs text-neutral-300 block`}
-                                                href="/auth/password"
+                                            <label
+                                                css={tw`text-xs font-bold text-neutral-300  block`}
                                             >
-                                                Forgot Password?
-                                            </a>
-                                        </h1>
+                                                Password{" "}
+                                                <span css={tw`text-red-400`}>
+                                                    *
+                                                </span>
+                                            </label>
 
-</div>
+                                            <h1>
+                                                <a
+                                                    css={tw`text-xs text-neutral-300 block`}
+                                                    href="/auth/password"
+                                                >
+                                                    Forgot Password?
+                                                </a>
+                                            </h1>
+                                        </div>
                                         <LoginField
                                             name={"password"}
                                             type={"password"}
