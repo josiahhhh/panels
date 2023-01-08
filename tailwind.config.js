@@ -113,13 +113,16 @@ module.exports = {
                 50: '#F3F3F4',
                 100: '#E7E7E9',
                 200: '#C3C3C7',
-                300: '#9F9FA5',
-                400: '#565862',
+                300: '#090b12',
+                400: '#111728',
                 500: '#0E101F',
                 600: '#0D0E1C',
                 700: '#080A13',
                 800: '#06070E',
                 900: '#040509',
+            },
+            icelinenew: {
+                50: '#151c2e',
             },
             icelinenavbar: {
                 50: '#F4F4F5',
@@ -200,7 +203,7 @@ module.exports = {
                 48: '12rem',
             },
             width: {
-                sidebar: '7.5rem',
+                sidebar: '16rem',
             },
             gridTemplateColumns: {
                 dashboard: 'auto 1fr',

@@ -1,93 +1,96 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import tw from 'twin.macro';
-import { useStoreState } from 'easy-peasy';
-import { ApplicationStore } from '@/state';
+import tw from "twin.macro";
+import { useStoreState } from "easy-peasy";
+import { ApplicationStore } from "@/state";
 
-import styled from 'styled-components/macro';
-import { NavLink } from 'react-router-dom';
-import http from '@/api/http';
-import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
+import styled from "styled-components/macro";
+import { NavLink } from "react-router-dom";
+import http from "@/api/http";
+import SpinnerOverlay from "@/components/elements/SpinnerOverlay";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faBars,
+    faTimes,
+    faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 const SidebarItem = styled.li`
-    & > a,
-    & > button {
-        ${tw`flex flex-col items-center justify-center text-neutral-50 no-underline p-4 cursor-pointer w-full`};
+    ${tw`relative flex items-center px-4 py-2 my-3 text-sm text-neutral-200 no-underline`}
 
-        opacity: 0.6;
+    &.active {
+        ${tw`text-neutral-100 bg-icelinemainbackground-400 rounded-md border-2 border-icelinenew-50`}
+    }
 
-        &:hover {
-            ${tw`bg-icelineSidebarSelected text-neutral-50`};
-            opacity: 1;
-        }
-
-        &.active {
-            ${tw`bg-icelineSidebarSelected border-icelinePrimary`};
-            border-right-width: 3px;
-        }
+    &:hover {
+        ${tw`text-neutral-100 bg-icelinemainbackground-700 rounded-md border-2 border-icelinenew-50`}
     }
 `;
 
 export default () => {
     const [visible, setVisible] = useState(true);
 
-    const userId = useStoreState((state: ApplicationStore) => state.user?.data?.uuid);
-    const rootAdmin = useStoreState((state: ApplicationStore) => state.user?.data?.rootAdmin);
+    const userId = useStoreState(
+        (state: ApplicationStore) => state.user?.data?.uuid
+    );
+    const rootAdmin = useStoreState(
+        (state: ApplicationStore) => state.user?.data?.rootAdmin
+    );
 
-    const staff = useStoreState((state: ApplicationStore) => state.user?.data?.staff);
+    const staff = useStoreState(
+        (state: ApplicationStore) => state.user?.data?.staff
+    );
 
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const items = [
         {
-            label: 'Account',
-            path: '/account',
-            icon: '/assets/iceline/sidebar/account.svg',
+            label: "Game Servers",
+            path: "/account",
+            icon: "/assets/iceline/sidebar/gs.svg",
             loggedIn: true,
         },
         {
-            label: 'Servers',
-            path: '/',
-            icon: '/assets/iceline/sidebar/servers.svg',
+            label: "VPSs",
+            path: "/",
+            icon: "/assets/iceline/sidebar/vps.svg",
             exact: true,
             loggedIn: true,
         },
         {
-            label: 'Proxies',
-            path: '/proxies',
-            icon: '/assets/iceline/sidebar/proxies.svg',
+            label: "Proxies",
+            path: "/proxies",
+            icon: "/assets/iceline/sidebar/proxiess.svg",
             exact: true,
             loggedIn: true,
-        },
-        {
-            label: 'Billing',
-            path: 'https://iceline-hosting.com/billing',
-            icon: '/assets/iceline/sidebar/billing.svg',
-            external: true,
         },
     ];
 
     if (staff === 1) {
         items.push({
-            label: 'Staff',
-            path: '/staff',
-            icon: '/assets/iceline/sidebar/staff.svg',
+            label: "Staff",
+            path: "/staff",
+            icon: "/assets/iceline/sidebar/staff.svg",
             loggedIn: true,
         });
     }
 
     const onTriggerLogout = () => {
         setIsLoggingOut(true);
-        http.post('/auth/logout').finally(() => {
+        http.post("/auth/logout").finally(() => {
             // @ts-expect-error this is valid
-            window.location = '/';
+            window.location = "/";
         });
     };
 
     return (
         <>
             {!visible && (
-                <div css={tw`absolute top-0 left-0 z-50 p-4`} onClick={() => setVisible(!visible)}>
+                <div
+                    css={tw`absolute top-0 left-0 z-50 p-4`}
+                    onClick={() => setVisible(!visible)}
+                >
                     <p css={tw`text-base text-neutral-200 font-medium`}>
                         <span>Open Sidebar</span>
                     </p>
@@ -102,57 +105,64 @@ export default () => {
                     }}
                 >
                     <aside
-                        css={tw`flex flex-col w-sidebar h-full bg-black text-neutral-50`}
+                        css={tw`flex flex-col w-sidebar h-full p-4 bg-icelinemainbackground-300 text-neutral-50`}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <SpinnerOverlay visible={isLoggingOut} />
-                        <div css={tw`flex items-center justify-center mb-8`}>
-                            <img 
-                                src={'/assets/iceline/logoDash.png'} 
-                                css={tw`w-32 h-32`}
-                            />
-                            
+                        <div css={tw`flex items-center justify-center p-4 mb-20`}>
+                            <div css={tw`flex items-center`}>
+                                <img
+                                    src="/assets/iceline/logo.svg"
+                                    css={tw`w-11/12`}
+                                />
+                            </div>
                         </div>
-                        <ul css={tw`flex-grow`}>
-                            {items.map((item) => {
-                                if (item.loggedIn && !userId) {
-                                    return <></>;
-                                }
+
+                        <ul css={tw`flex-1 flex flex-col`}>
+                            <h1
+                                css={tw`px-4 py-2 text-sm mb-2 text-neutral-200`}
+                            >
+                                Services
+                            </h1>
+                            {items.map((item, index) => {
+                                if (item.loggedIn && !userId) return null;
+
                                 return (
-                                    <SidebarItem key={item.path}>
-                                        {item.external ? (
-                                            <a href={item.path} rel={'noreferrer'}>
-                                                <img src={item.icon} />
-                                                <p css={tw`text-center mt-4 text-base`}>{item.label}</p>
-                                            </a>
-                                        ) : (
-                                            <NavLink to={item.path} exact={item.exact ? item.exact : false}>
-                                                <img src={item.icon} />
-                                                <p css={tw`text-center mt-4 text-base`}>{item.label}</p>
-                                            </NavLink>
-                                        )}
+                                    <SidebarItem
+                                        key={index}
+                                        className={
+                                            window.location.pathname ===
+                                            item.path
+                                                ? "active"
+                                                : ""
+                                        }
+                                    >
+                                        <NavLink
+                                            to={item.path}
+                                            exact={item.exact}
+                                            css={tw`flex items-center w-full h-full`}
+                                            onClick={() => setVisible(false)}
+                                        >
+                                            <img
+                                                src={item.icon}
+                                                css={tw`w-6 h-6 mr-4`}
+                                            />
+                                            <span>{item.label}</span>
+                                        </NavLink>
                                     </SidebarItem>
                                 );
                             })}
                         </ul>
-                        <ul>
-                            {rootAdmin && (
-                                <SidebarItem>
-                                    <a href={'/admin'} rel={'noreferrer'}>
-                                        <img src={'/assets/iceline/sidebar/settings.svg'} />
-                                        <p css={tw`text-center mt-4 text-base`}>Admin</p>
-                                    </a>
-                                </SidebarItem>
-                            )}
-                            {userId && (
-                                <SidebarItem>
-                                    <button onClick={onTriggerLogout}>
-                                        <img src={'/assets/iceline/sidebar/logout.svg'} />
-                                        <p css={tw`text-center mt-4 text-base`}>Log Out</p>
-                                    </button>
-                                </SidebarItem>
-                            )}
-                        </ul>
+
+                        <div css={tw`flex items-center p-4 mb-8`}>
+                            <button
+                                css={tw`flex items-center justify-center  `}
+                                onClick={onTriggerLogout}
+                            >
+                                <FontAwesomeIcon icon={faSignOutAlt} />
+                                <span css={tw`text-white ml-2`}>Logout</span>
+                            </button>
+                        </div>
                     </aside>
                 </div>
             )}
