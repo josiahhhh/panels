@@ -54,19 +54,6 @@ export default () => {
 
     return (
         <PageContentBlock title={'Dashboard'} showFlashKey={'dashboard'}>
-            {searchVisible && <SearchModal appear visible={searchVisible} onDismissed={() => setSearchVisible(false)} />}
-            <div css={tw`mx-10 flex flex-row items-center justify-between mb-6`}>
-                <a css={tw`flex flex-row items-center text-sm cursor-pointer`} style={{ color: '#9092a7' }} onClick={() => setSearchVisible(true)}>
-                    <img css={tw`mr-2`} src={'/assets/iceline/servers/search.svg'} alt={'search'} />
-                    <span>Search</span>
-                </a>
-                {rootAdmin && (
-                    <div css={tw`flex justify-end items-center`}>
-                        <p css={tw`uppercase text-xs text-neutral-400 mr-2`}>{showOnlyAdmin ? "Showing other's servers" : 'Showing your servers'}</p>
-                        <Switch name={'show_all_servers'} defaultChecked={showOnlyAdmin} onChange={() => setShowOnlyAdmin((s) => !s)} />
-                    </div>
-                )}
-            </div>
             {!servers ? (
                 <Spinner centered size={'large'} />
             ) : (
