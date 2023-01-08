@@ -1,35 +1,25 @@
-import { setupInterceptors } from "@/api/interceptors";
-import GlobalStylesheet from "@/assets/css/GlobalStylesheet";
-import "@/assets/tailwind.css";
-import AuthenticatedRoute from "@/components/elements/AuthenticatedRoute";
-import ProgressBar from "@/components/elements/ProgressBar";
-import { NotFound } from "@/components/elements/ScreenBlock";
-import Spinner from "@/components/elements/Spinner";
-import { history } from "@/components/history";
-import Sidebar from "@/components/iceline/Sidebar";
-import { store } from "@/state";
-import { ServerContext } from "@/state/server";
-import { SiteSettings } from "@/state/settings";
-import { StoreProvider } from "easy-peasy";
-import React, { lazy } from "react";
-import { hot } from "react-hot-loader/root";
-import { Route, Router, Switch } from "react-router-dom";
-import tw from "twin.macro";
+import { setupInterceptors } from '@/api/interceptors';
+import GlobalStylesheet from '@/assets/css/GlobalStylesheet';
+import '@/assets/tailwind.css';
+import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
+import ProgressBar from '@/components/elements/ProgressBar';
+import { NotFound } from '@/components/elements/ScreenBlock';
+import Spinner from '@/components/elements/Spinner';
+import { history } from '@/components/history';
+import Sidebar from '@/components/iceline/Sidebar';
+import { store } from '@/state';
+import { ServerContext } from '@/state/server';
+import { SiteSettings } from '@/state/settings';
+import { StoreProvider } from 'easy-peasy';
+import React, { lazy } from 'react';
+import { hot } from 'react-hot-loader/root';
+import { Route, Router, Switch } from 'react-router-dom';
+import tw from 'twin.macro';
 
-const DashboardRouter = lazy(
-    () =>
-        import(/* webpackChunkName: 'dashboard' */ "@/routers/DashboardRouter")
-);
-const ServerRouter = lazy(
-    () => import(/* webpackChunkName: 'server' */ "@/routers/ServerRouter")
-);
-const AuthenticationRouter = lazy(
-    () =>
-        import(/* webpackChunkName: 'auth' */ "@/routers/AuthenticationRouter")
-);
-const StaffRouter = lazy(
-    () => import(/* webpackChunkName: 'auth' */ "@/routers/StaffRouter")
-);
+const DashboardRouter = lazy(() => import(/* webpackChunkName: 'dashboard' */ '@/routers/DashboardRouter'));
+const ServerRouter = lazy(() => import(/* webpackChunkName: 'server' */ '@/routers/ServerRouter'));
+const AuthenticationRouter = lazy(() => import(/* webpackChunkName: 'auth' */ '@/routers/AuthenticationRouter'));
+const StaffRouter = lazy(() => import(/* webpackChunkName: 'auth' */ '@/routers/StaffRouter'));
 
 interface ExtendedWindow extends Window {
     SiteConfiguration?: SiteSettings;
@@ -77,23 +67,16 @@ const App = () => {
                 <ProgressBar />
                 <div css={tw`mx-auto w-auto`}>
                     <Router history={history}>
-                        <div
-                            css={tw`flex flex-row h-screen`}
-                            className={"content-wrapper"}
-
-                        >
-                            {PterodactylUser ? <Sidebar /> : null}
-                            <div
-                                className={"content"}
-                                css={tw`h-screen overflow-x-hidden overflow-y-auto relative `}
-                            >
+                        <div className={'content-wrapper'} css={tw`grid grid-cols-1 sm:grid-cols-dashboard h-screen relative`}>
+                             {PterodactylUser ? <Sidebar /> : null}
+                            <div className={'content'} css={tw`h-screen overflow-x-hidden overflow-y-auto relative `}>
                                 <Switch>
-                                    <Route path={"/auth"}>
+                                    <Route path={'/auth'}>
                                         <Spinner.Suspense>
                                             <AuthenticationRouter />
                                         </Spinner.Suspense>
                                     </Route>
-                                    <AuthenticatedRoute path={"/server/:id"}>
+                                    <AuthenticatedRoute path={'/server/:id'}>
                                         <Spinner.Suspense>
                                             <ServerContext.Provider>
                                                 <ServerRouter />
@@ -101,7 +84,7 @@ const App = () => {
                                         </Spinner.Suspense>
                                     </AuthenticatedRoute>
                                     {PterodactylUser?.staff && (
-                                        <AuthenticatedRoute path={"/staff"}>
+                                        <AuthenticatedRoute path={'/staff'}>
                                             <Spinner.Suspense>
                                                 <ServerContext.Provider>
                                                     <StaffRouter />
@@ -109,12 +92,12 @@ const App = () => {
                                             </Spinner.Suspense>
                                         </AuthenticatedRoute>
                                     )}
-                                    <AuthenticatedRoute path={"/"}>
+                                    <AuthenticatedRoute path={'/'}>
                                         <Spinner.Suspense>
                                             <DashboardRouter />
                                         </Spinner.Suspense>
                                     </AuthenticatedRoute>
-                                    <Route path={"*"}>
+                                    <Route path={'*'}>
                                         <NotFound />
                                     </Route>
                                 </Switch>

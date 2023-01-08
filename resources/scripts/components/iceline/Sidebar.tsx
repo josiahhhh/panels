@@ -95,23 +95,22 @@ export default () => {
             )}
             {visible && (
                 <div
-                    css={tw`fixed top-0 left-0 right-0 bottom-0 z-50 sm:relative sm:right-auto`}
-                    style={{
-                        backgroundColor: 'rgba(0,0,0,0.5)',
-                    }}
+                    css={tw`fixed top-0 left-0 right-0 bottom-0 z-50 sm:relative sm:right-auto bg-black bg-opacity-50`}
                     onClick={(e) => {
                         e.stopPropagation();
                         setVisible(false);
                     }}
                 >
                     <aside
-                        css={tw`flex flex-col w-sidebar h-full`}
-                        style={{ background: 'linear-gradient(180deg, #1A1E3A 0%, #171A33 58.5%)' }}
+                        css={tw`flex flex-col w-sidebar h-full bg-black text-neutral-50`}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <SpinnerOverlay visible={isLoggingOut} />
                         <div css={tw`flex items-center justify-center mb-8`}>
-                            <img src={'/assets/iceline/logo.png'} />
+                            <img 
+                                src={'/assets/iceline/logoDash.png'} 
+                                css={tw`w-32 h-32`}
+                            />
                             
                         </div>
                         <ul css={tw`flex-grow`}>

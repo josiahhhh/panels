@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Form } from 'formik';
-// import styled from 'styled-components/macro';
-// import { breakpoint } from '@/theme';
+import styled from 'styled-components/macro';
+import { breakpoint } from '@/theme';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import tw from 'twin.macro';
 
@@ -9,7 +9,7 @@ type Props = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, 
     title?: string;
 };
 
-/* const Container = styled.div`
+const Container = styled.div`
     ${breakpoint('sm')`
         ${tw`w-4/5 mx-auto`}
     `};
@@ -26,10 +26,10 @@ type Props = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, 
         ${tw`w-full`}
         max-width: 700px;
     `};
-`; */
+`;
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => (
-    <div
+    <Container
         css={tw`w-full md:h-full p-8`}
         style={{
             minHeight: '100vh',
@@ -44,5 +44,5 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                 <div css={tw`w-full px-4`}>{props.children}</div>
             </Form>
         </div>
-    </div>
+    </Container>
 ));
