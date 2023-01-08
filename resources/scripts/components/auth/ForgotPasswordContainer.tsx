@@ -108,7 +108,7 @@ export default () => {
                     {({ isSubmitting, setSubmitting, submitForm }) => (
                         <LoginFormContainer>
                             <div
-                                css={tw`flex flex-col w-full py-40 container max-w-4xl`}
+                                css={tw`flex flex-col w-full py-5 md:py-40 px-10 container max-w-4xl`}
                             >
                                 <div css={tw`flex flex-row items-center`}>
                                     <img

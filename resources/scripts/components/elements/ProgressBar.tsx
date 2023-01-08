@@ -6,9 +6,21 @@ import { CSSTransition } from 'react-transition-group';
 import tw from 'twin.macro';
 
 const BarFill = styled.div`
-    ${tw`h-full bg-icelinebrandcolour-500`};
-    transition: 250ms ease-in-out;
-    box-shadow: 0 -2px 10px 2px hsl(178, 78%, 57%);
+    ${tw`bg-blue-500 h-full transition-all duration-150`}
+
+    &.fade-enter {
+        ${tw`opacity-0`}
+    }
+
+    &.fade-enter-active {
+        ${tw`opacity-100`}
+    }
+
+    &.fade-exit {
+        ${tw`opacity-100`}
+    }
+
+    
 `;
 
 type Timer = ReturnType<typeof setTimeout>;

@@ -112,6 +112,7 @@ export default () => {
                         <SpinnerOverlay visible={isLoggingOut} />
                         <div css={tw`flex items-center justify-center mb-8`}>
                             <img src={'/assets/iceline/logo.png'} />
+                            
                         </div>
                         <ul css={tw`flex-grow`}>
                             {items.map((item) => {

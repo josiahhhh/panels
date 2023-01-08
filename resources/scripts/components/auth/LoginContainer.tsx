@@ -119,7 +119,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                     {({ isSubmitting, setSubmitting, submitForm }) => (
                         <LoginFormContainer>
                             <div
-                                css={tw`flex flex-col w-full py-20 px-10 sm:px-20 md:px-40 lg:px-60`}
+                                css={tw`flex flex-col w-full container max-w-4xl mx-auto py-10`}
                             >
                                 <div css={tw`flex flex-row items-center`}>
                                     <img
