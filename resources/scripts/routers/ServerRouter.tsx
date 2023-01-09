@@ -26,6 +26,7 @@ import ServerHeader from '@/components/iceline/ServerHeader';
 import * as Sentry from '@sentry/react';
 import { SocketEvent } from '@/components/server/events';
 import AlertContainer from '../components/elements/AlertContainer';
+import NavigationBar from '@/components/NavigationBar';
 const Route = Sentry.withSentryRouting(RouterRoute);
 
 export default () => {
@@ -117,7 +118,7 @@ export default () => {
 
     return (
         <React.Fragment key={'server-router'}>
-            {/* <NavigationBar /> */}
+            <NavigationBar />
             {!uuid || !id ? (
                 error ? (
                     <ServerError message={error} />

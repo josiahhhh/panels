@@ -67,7 +67,7 @@ const App = () => {
                 <ProgressBar />
                 <div css={tw`mx-auto w-auto`}>
                     <Router history={history}>
-                        <div className={'content-wrapper'} css={tw`grid grid-cols-1 sm:grid-cols-dashboard h-screen relative`}>
+                        <div className={'content-wrapper'} css={tw`grid grid-cols-1 sm:grid-cols-dashboard h-screen`}>
                              {PterodactylUser ? <Sidebar /> : null}
                             <div className={'content'} css={tw`h-screen overflow-x-hidden overflow-y-auto relative `}>
                                 <Switch>

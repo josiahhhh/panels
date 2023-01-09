@@ -54,7 +54,7 @@ export default () => {
 
     return (
         <PageContentBlock title={'Dashboard'} showFlashKey={'dashboard'}>
-            {!servers ? (
+            {!servers ? (   
                 <Spinner centered size={'large'} />
             ) : (
                 <Pagination data={servers} onPageSelect={setPage}>
@@ -66,9 +66,14 @@ export default () => {
                                 ))}
                             </div>
                         ) : (
-                            <p css={tw`text-center text-sm text-neutral-400`}>
-                                {showOnlyAdmin ? 'There are no other servers to display.' : 'There are no servers associated with your account.'}
-                            </p>
+                            <div css={tw`py-40 text-center text-neutral-400`}>
+                                <p css={tw`text-2xl mb-4`}>No servers found.</p>
+                                <p css={tw`text-sm`}>
+                                    You can create a new server by clicking the <span css={tw`font-mono`}>Create</span> button
+                                    in the top right of this page.
+                                </p>
+                            </div>
+
                         )
                     }
                 </Pagination>
